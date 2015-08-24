@@ -1,30 +1,56 @@
 buildscript {
 
-    repositories {
-        jcenter()
-    }
+  repositories {
+    jcenter()
+  }
 
-    dependencies {
-        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.2'
-        classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.+'
-    }
+  dependencies {
+    classpath 'com.develhack:gradle-eclipse-plugin:+'
+    classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.2'
+    classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.+'
+  }
 }
 
 apply plugin: 'java'
+apply plugin: 'com.develhack.eclipse'
 apply plugin: 'org.asciidoctor.convert'
 
+configurations {
+  asciidoclet
+}
+
+dependencies {
+  asciidoclet 'org.asciidoctor:asciidoclet:1.+'
+}
+
+javadoc {
+
+  include '**/*.java'
+
+  options {
+    docletpath = configurations.asciidoclet.files.asType(List)
+    doclet 'org.asciidoctor.Asciidoclet'
+    addStringOption "-base-dir", "${projectDir}"
+    addStringOption "-attribute", "name=${project.name},version=${project.version},title-link=http://example.com[${project.name} ${project.version}]"
+    locale 'en_US'
+    encoding 'UTF-8'
+    links 'http://docs.oracle.com/javase/8/docs/api/'
+  }
+}
+
 asciidoctor {
-    sourceDir   'src/main/doc'
-    backends    'html5'
-    backends    'pdf'
-    attributes  'build-gradle': file('build.gradle'),
-                'source-highlighter' : 'coderay',
-                'sourcedir': '../java',
-                'imagesdir':'./images',
-                'toc':'left',
-                'icons': 'font',
-                'setanchors':'true',
-                'idprefix':'',
-                'idseparator':'-',
-                'docinfo1':'true'
+  sourceDir  'src/main/doc'
+  backends   'pdf', 'html5'
+  attributes 'build-gradle': file('build.gradle'),
+        'source-highlighter': 'coderay',
+        'sourcedir': '../java',
+        'imagesdir': 'images',
+        'pdf-stylesdir': 'themes',
+        'pdf-style': 'develhack',
+        'toc': 'left',
+        'icons': 'font',
+        'setanchors': 'true',
+        'idprefix': '',
+        'idseparator': '-',
+        'docinfo1': 'true'
 }
