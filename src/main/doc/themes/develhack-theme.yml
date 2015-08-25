@@ -180,9 +180,11 @@ header:
   padding: [$base_line_height_length / 2, 1, 0, 1]
   vertical_align: top
   recto_content:
-    left: '{section-title} > {chapter-title}'
+    left: '{chapter-title}'
+    right: '{section-title}'
   verso_content:
-    left: '{section-title} > {chapter-title}'
+    left: $header_recto_content_left
+    right: $header_recto_content_right
 footer:
   font_size: $base_font_size_small
   font_color: $base_font_color
@@ -193,6 +195,6 @@ footer:
   padding: [$base_line_height_length / 2, 1, 0, 1]
   vertical_align: top
   recto_content:
-    center: '{page-number}'
+    left: '{page-number}'
   verso_content:
-    center: '{page-number}'
+    right: '{page-number}'
