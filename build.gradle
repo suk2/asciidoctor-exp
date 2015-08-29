@@ -41,20 +41,14 @@ javadoc {
 }
 
 asciidoctor {
+
+  logDocuments = true
+
   sourceDir  'src/main/doc'
   backends   'pdf', 'html5'
-  attributes 'build-gradle': file('build.gradle'),
-        'doctype': 'book',
-        'source-highlighter': 'coderay',
-        'sourcedir': '../java',
-        'imagesdir': 'images',
-        'pdf-stylesdir': 'themes',
-        'pdf-style': 'develhack',
-        'toc': 'left',
-        'icons': 'font',
-        'setanchors': 'true',
-        'idprefix': '',
-        'idseparator': '-',
-        'docinfo1': 'true',
-        'toc-title': '目次'
+  attributes 'source-highlighter': 'coderay',
+             'sourcedir': '../java',
+             'imagesdir': 'images',
+             'pdf-stylesdir': 'themes',
+             'pdf-style': 'develhack'
 }

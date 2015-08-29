@@ -195,6 +195,6 @@ footer:
   padding: [$base_line_height_length / 2, 1, 0, 1]
   vertical_align: top
   recto_content:
-    left: '{page-number}'
+    center: '{page-number} / {page-count}'
   verso_content:
-    right: '{page-number}'
+    center: $footer_recto_content_center
